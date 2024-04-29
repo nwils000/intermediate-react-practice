@@ -49,9 +49,9 @@ function EditTeam() {
   }
 
   return (
-    <div>
+    <div className="edit-team">
       <Link to="/">{'<- Back'}</Link>
-      <h1>About Page</h1>
+      <h1>Edit Team</h1>
       <label>Name</label>
       <input
         value={name}
@@ -104,7 +104,6 @@ function EditTeam() {
           }
         }}
       />
-      <button onClick={randomlyGenerateStats}>Randomly Generate Stats</button>
       <button
         onClick={() => {
           console.log('clicked button');
@@ -114,6 +113,7 @@ function EditTeam() {
       >
         Randomly Generate Name
       </button>
+      <button onClick={randomlyGenerateStats}>Randomly Generate Stats</button>
       <button
         onClick={() => {
           console.log(typeof health);

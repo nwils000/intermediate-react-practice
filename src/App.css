@@ -13,3 +13,49 @@ body {
 #page-content {
   flex-grow: 2;
 }
+
+.edit-team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.edit-team a {
+  color: black;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.edit-team h1 {
+  font-size: 2rem;
+}
+
+.edit-team label {
+  display: block;
+  margin: 1rem 1rem 0 1rem;
+}
+
+.edit-team input {
+  display: block;
+  margin: 0 1rem 1rem 1rem;
+}
+
+.edit-team button {
+  display: block;
+  margin: 1rem;
+  border: none;
+  background-color: rgb(40, 119, 36);
+  border-radius: 100px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.381);
+  transition: 0.35s ease-in-out;
+  padding: 0.4rem 1rem;
+  color: white;
+}
+
+.edit-team button:hover {
+  box-shadow: 0px 0px 15px rgb(45, 119, 41);
+  background-color: rgb(37, 98, 34);
+}

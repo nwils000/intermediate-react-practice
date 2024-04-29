@@ -22,7 +22,7 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className='home'>
       <Link to="/edit-team">Edit Team</Link>
       <h1>Players</h1>
       <ul>{players.map((e) => e)}</ul>
