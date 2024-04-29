@@ -4,9 +4,9 @@ import { useContext, useState } from 'react';
 
 function EditTeam() {
   const [name, setName] = useState('');
-  const [health, setHealth] = useState(null);
-  const [attack, setAttack] = useState(null);
-  const [speed, setSpeed] = useState(null);
+  const [health, setHealth] = useState('');
+  const [attack, setAttack] = useState('');
+  const [speed, setSpeed] = useState('');
   const [validation, setValidation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { dispatch } = useContext(TeamContext);
@@ -71,11 +71,10 @@ function EditTeam() {
         onClick={() => {
           console.log(typeof health);
           if (
-            health + attack + speed <= 10 &&
-            name &&
-            health &&
-            attack &&
-            speed
+            (health + attack + speed <= 10 && name && health != '') ||
+            (health === 0 && attack != '') ||
+            (attack === 0 && speed != '') ||
+            speed === 0
           ) {
             dispatch({
               type: 'ADD_PLAYER',
@@ -89,23 +88,22 @@ function EditTeam() {
             setErrorMessage('');
             setValidation(`${name} added to the team`);
             setName('');
-            setAttack(null);
-            setHealth(null);
-            setSpeed(null);
-          } else if (!name) {
-            setErrorMessage(`Enter a name`);
-          }
-          else if (!attack) {
-            setErrorMessage(`${name} needs attack stats`)
-          }
-          else if (!attack) {
-            setErrorMessage(`${name} needs attack stats`)
+            setAttack('');
+            setHealth('');
+            setSpeed('');
+          } else if (health + attack + speed > 10) {
+            setErrorMessage('');
+            setErrorMessage(`${name}'s total skill points exceed 10`);
+          } else {
+            setErrorMessage('');
+            setErrorMessage(`1 or more input fields are empty`);
           }
         }}
       >
         Add Player
       </button>
-      <div style={{ color: 'green' }}>{validation || errorMessage}</div>
+      <div style={{ color: 'green' }}>{validation}</div>
+      <div style={{ color: 'red' }}>{errorMessage}</div>
     </div>
   );
 }
