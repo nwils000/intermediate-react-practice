@@ -11,6 +11,24 @@ function EditTeam() {
   const [errorMessage, setErrorMessage] = useState('');
   const { dispatch } = useContext(TeamContext);
 
+  function randomlyGenerateStats() {
+    let firstNumber, secondNumber, thirdNumber;
+    do {
+      firstNumber = Math.floor(Math.random() * 6);
+      secondNumber = Math.floor(Math.random() * (6 - firstNumber));
+      thirdNumber = 10 - firstNumber - secondNumber;
+    } while (thirdNumber > 5 || thirdNumber < 0);
+
+    let numbersArray = [firstNumber, secondNumber, thirdNumber];
+    for (let i = numbersArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [numbersArray[i], numbersArray[j]] = [numbersArray[j], numbersArray[i]];
+    }
+    setHealth(numbersArray[0]);
+    setAttack(numbersArray[1]);
+    setSpeed(numbersArray[2]);
+  }
+
   return (
     <div>
       <Link to="/">{'<- Back'}</Link>
@@ -67,6 +85,7 @@ function EditTeam() {
           }
         }}
       />
+      <button onClick={randomlyGenerateStats}>Randomly Generate Stats</button>
       <button
         onClick={() => {
           console.log(typeof health);
