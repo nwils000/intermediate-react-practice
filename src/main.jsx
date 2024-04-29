@@ -1,4 +1,5 @@
 import React from 'react';
+import { createContext, useReducer } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -9,17 +10,27 @@ import './App.css';
 import EditTeam from './EditTeam';
 import Home from './Home';
 import ErrorPage from './ErrorPage';
-import Header from './Header';
-import Footer from './Footer';
+
+import { initialTeamState } from './reducers/team-reducer';
+import { teamReducer } from './reducers/team-reducer';
+
+export const TeamContext = createContext(null);
+
+const TeamProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(teamReducer, initialTeamState);
+  return (
+    <TeamContext.Provider value={{ state, dispatch }}>
+      {children}
+    </TeamContext.Provider>
+  );
+};
 
 function Layout() {
   return (
     <>
-      <Header />
       <div id="page-content">
         <Outlet />
       </div>
-      <Footer />
     </>
   );
 }
@@ -43,5 +54,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <TeamProvider>
+    <RouterProvider router={router} />
+  </TeamProvider>
 );
