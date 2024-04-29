@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TeamContext } from './main';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 function EditTeam() {
   const [name, setName] = useState('');
@@ -9,7 +10,25 @@ function EditTeam() {
   const [speed, setSpeed] = useState('');
   const [validation, setValidation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [randomBabyName, setRandomBabyName] = useState('...');
   const { dispatch } = useContext(TeamContext);
+
+  async function fetchName() {
+    try {
+      const res = await axios.get(
+        'https://api.api-ninjas.com/v1/babynames?gender=neutral',
+        {
+          headers: {
+            'X-Api-Key': `${import.meta.env.VITE_API_KEY}`,
+          },
+        }
+      );
+      console.log('set baby name');
+      setName(res.data[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   function randomlyGenerateStats() {
     let firstNumber, secondNumber, thirdNumber;
@@ -86,6 +105,15 @@ function EditTeam() {
         }}
       />
       <button onClick={randomlyGenerateStats}>Randomly Generate Stats</button>
+      <button
+        onClick={() => {
+          console.log('clicked button');
+          setName('...');
+          fetchName();
+        }}
+      >
+        Randomly Generate Name
+      </button>
       <button
         onClick={() => {
           console.log(typeof health);
