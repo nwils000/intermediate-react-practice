@@ -139,9 +139,11 @@ function EditTeam() {
             setHealth('');
             setSpeed('');
           } else if (health + attack + speed > 10) {
+            setValidation('');
             setErrorMessage('');
             setErrorMessage(`${name}'s total skill points exceed 10`);
           } else {
+            setValidation('');
             setErrorMessage('');
             setErrorMessage(`1 or more input fields are empty`);
           }
